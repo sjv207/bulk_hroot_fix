@@ -1,0 +1,9 @@
+version: '3.8'
+services:
+  flaskapp:
+    build: .
+    ports:
+      - "8164:8164"
+    environment:
+      - FLASK_RUN_PORT=8164
+    command: python app.py

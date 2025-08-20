@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>restart Bulk Invites</title>
+    <script>
+        function callEndpoint() {
+            console.log("Calling endpoint restartBulk...");
+            fetch('https://fgen.feele.exeter.ac.uk/fpg/restartBulk', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.text())
+            .then(data => {
+                console.log("Data: ", data);
+                document.getElementById('result').innerText = data;
+                location.reload(); 
+            });
+        }
+    </script>
+</head>
+<body>
+    <h1>Restart the hroot bulk invite process</h1>
+    <p id="status">Current status</p>
+    <script>
+        window.onload = function() {
+            console.log("Fetching current status...");
+            fetch('https://fgen.feele.exeter.ac.uk/phi/getBulkStatus', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('status').innerText = `Current status: ${data}`;
+            });
+        };
+    </script>
+    <button onclick="callEndpoint()">Restart Bulk Invites</button>
+    <p id="result"></p>
+</body>
+</html>
